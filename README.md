@@ -8,9 +8,33 @@ npx create-react-app PROJECT-NAME --template cra-template-build-week-template
 
 This is a create-react-app boilerplate for build week projects at Lambda School.
 
-This particular boilerplate comes with redux already set up. The store and Provider have been set up in `App.js`, with redux-thunk being used as some middleware to help with handling asynchronous activity like API calls. Some very basic file structures have been set up for the reducers and actions to help get you started.
+This particular template comes with redux already set up. The store and Provider have been set up in `App.js`, with redux-thunk being used as some middleware to help with handling asynchronous activity like API calls. Some very basic file structures have been set up for the reducers and actions to help get you started.
 
-This template also comes with dependencies like prettier, eslint, husky, and lint-staged to make the team collaboration smoother by helping to keep code structure consistent and help prevent some poor code from being committed and pushed into production.
+In the `utils` folder, an `axiosWithAuth` file has been created, with some basic structure set up for the headers and baseURL for `axios`. It also utilizes `localStorage` to store an authorization token. Then in your components, wherever you need to use `axios` that requires authorization, import `axiosWithAuth` and invoke the function in place of where you would put `axios`. Change or even delete the file as needed.
+
+```javascript
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+
+...
+
+axiosWithAuth()
+  .post("/login", user)
+  .then(res => {
+      localStorage.setItem("token", res.data.payload);
+  })
+  .catch(err => {
+      localStorage.removeItem("token");
+      console.log("Invalid login: ", err);
+  });
+```
+
+Formik and Yup have also been added as dependencies for your convenience to use for creating your forms and adding form validation. Styled-components have been included as well. It is a common styling tool for Build Week projects at Lambda School since it is more widely known by students.
+
+This template also comes with dependencies like [prettier](https://github.com/prettier/prettier), [eslint](https://github.com/eslint/eslint), [husky](https://github.com/typicode/husky#readme), and [lint-staged](https://github.com/okonet/lint-staged#readme) to make the team collaboration smoother by helping to keep code structure consistent and help prevent some poor code from being committed and pushed into production. Unfortunately, `create-react-app` doesn’t support devDependencies, so you have to manually put them as devDependencies after your project is bootstrapped.
+
+Specifically, [Kent C. Dodd's eslint config](https://github.com/kentcdodds/eslint-config-kentcdodds) has been used with this template. To customize any of the rules, edit the `.eslintrc` file to override Kent's rules.
+
+A default formatting for prettier has been provided. To make changes, edit the `.prettierrc` file.
 
 You can add the following to your `package.json` in your project directory to customize your husky and lint-staged dependencies:
 
@@ -33,6 +57,3 @@ You can add the following to your `package.json` in your project directory to cu
 ```
 
 With this setup, when you run a `git commit` command, husky runs lint-staged. In our lint-staged, we've told it to run our eslint rules on all `.js` files. Then run prettier on all of the listed file types to make sure they're all consistently formatted. Then run all of our tests that are related to the files being committed with jest. Finally, if a file is changed, due to formatting from prettier or something else in this process, we do `git add` again to make sure that those changes are staged and ready to be committed. If these scripts pass, then all of the files will actually be committed.
-
-[husky docs](https://github.com/typicode/husky#readme)
-[lint-staged docs](https://github.com/okonet/lint-staged#readme)
