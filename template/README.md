@@ -1,10 +1,8 @@
-A create-react-app template designed for Lambda School Build Week projects.
+# Lambda School Build Week Boilerplate -- create-react-app with redux
 
 ```
 npx create-react-app PROJECT-NAME --template cra-template-build-week-template
 ```
-
-# Lambda School Build Week Boilerplate -- create-react-app with redux
 
 This is a create-react-app boilerplate for build week projects at Lambda School.
 
