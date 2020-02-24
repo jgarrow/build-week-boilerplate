@@ -10,7 +10,7 @@ This is a create-react-app boilerplate for build week projects at Lambda School.
 
 This particular template comes with redux already set up. The store and Provider have been set up in `App.js`, with redux-thunk being used as some middleware to help with handling asynchronous activity like API calls. Some very basic file structures have been set up for the reducers and actions to help get you started.
 
-In the `utils` folder, an `axiosWithAuth` file has been created, with some basic structure set up for the headers and baseURL for `axios`. It also utilizes `localStorage` to store an authorization token. Then in your components, wherever you need to use `axios` that requires authorization, import `axiosWithAuth` and invoke the function in place of where you would put `axios`. Change or even delete the file as needed.
+In the `utils` folder, an `axiosWithAuth` file has been created, with some basic structure set up for the headers and baseURL for `axios`. It also utilizes `localStorage` to store an authorization token. This token can be received from a server via a POST request when the correct credentials are provided in the `body` of the request. Then in your components, wherever you need to use `axios` that requires authorization, import `axiosWithAuth` and invoke the function in place of where you would put `axios`. Change or even delete the file as needed.
 
 ```javascript
 import { axiosWithAuth } from "../utils/axiosWithAuth";
@@ -27,6 +27,8 @@ axiosWithAuth()
       console.log("Invalid login: ", err);
   });
 ```
+
+In the `components` folder, a `PrivateRoute` component has been created. When you use this component, the syntax is the same as a normal `Route` component where you provide the `path` and the component to be rendered. The `PrivateRoute` checks to see if you have stored a `token` in localStorage. This assumes that you are also using the provided `axiosWithAuth` that receives a `token` and stores it in localStorage.
 
 Formik and Yup have also been added as dependencies for your convenience to use for creating your forms and adding form validation. Styled-components have been included as well. It is a common styling tool for Build Week projects at Lambda School since it is more widely known by students.
 
