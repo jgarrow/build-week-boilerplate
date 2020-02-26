@@ -21,6 +21,7 @@ axiosWithAuth()
   .post("/login", user)
   .then(res => {
       localStorage.setItem("token", res.data.payload);
+      props.history.push("/URL PATH YOU WANT TO LOGIN TO HERE");
   })
   .catch(err => {
       localStorage.removeItem("token");
